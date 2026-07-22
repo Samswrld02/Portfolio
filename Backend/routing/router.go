@@ -34,6 +34,10 @@ func (r *Router) setRoutes() {
 		return c.JSON(http.StatusOK, map[string]string{"routing": "works"})
 	})
 
+	api.GET("/poop", func(c *echo.Context) error {
+		return c.JSON(http.StatusOK, map[string]string{"poop": "gay"})
+	})
+
 	api.GET("/sam", func(c *echo.Context) error {
 		return c.HTML(http.StatusOK, "<h1>hello world</h1>")
 	})
