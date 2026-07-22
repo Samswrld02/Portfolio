@@ -1,0 +1,7 @@
+localhost:80 {
+    handle /api/* {
+        reverse_proxy backend:80
+    }
+
+    reverse_proxy frontend:5173
+}
