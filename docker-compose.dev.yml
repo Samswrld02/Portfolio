@@ -1,0 +1,72 @@
+
+services:
+  frontend:
+    image: node:24
+    container_name: frontend
+    restart: always
+    working_dir: /app
+    volumes:
+      - ./Frontend/vue:/app
+    networks:
+      - portfolio-network
+    command: sh -c "npm install && npm run dev"
+      
+  backend:
+    container_name: backend
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile.dev
+    volumes:
+      - ./Backend:/app
+    networks:
+      - portfolio-network
+    env_file:
+      - .env
+
+  Db:
+    container_name: database
+    image: mariadb:10.11
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MARIADB_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MARIADB_DATABASE: ${MYSQL_DATABASE}
+      MARIADB_USER: ${MYSQL_USER}
+      MARIADB_PASSWORD: ${MYSQL_PASSWORD}
+    networks:
+      - portfolio-network
+    volumes:
+      - "db_data:/var/lib/mysql"
+
+#  reverse proxy
+  caddy:
+    build: 
+      context: ./caddy
+      dockerfile: Dockerfile
+    container_name: caddy_proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/caddy_config
+    # depends_on:
+    #   - backend
+    networks:
+      - portfolio-network
+
+networks:
+  portfolio-network:
+    driver: bridge
+
+volumes:
+  caddy_data:
+  caddy_config:
+  db_data:
+     
+
+
+
+

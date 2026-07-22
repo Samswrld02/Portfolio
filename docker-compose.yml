@@ -1,0 +1,55 @@
+services:
+  frontend:
+    build: 
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: frontend
+    restart: always
+    networks:
+      - portfolio-network
+    
+
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    container_name: backend
+    restart: always
+    env_file: .env
+    # depends_on:
+    #   - db_data
+    networks:
+      - portfolio-network
+
+
+  #  reverse proxy
+  caddy:
+    build: 
+      context: ./caddy
+      dockerfile: Dockerfile
+    container_name: caddy_proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/caddy_config
+    # depends_on:
+    #   - backend
+    networks:
+      - portfolio-network
+
+networks:
+  portfolio-network:
+    driver: bridge
+
+volumes:
+  caddy_data:
+  caddy_config:
+  db_data:
+     
+
+
+
+
