@@ -1,13 +1,14 @@
 package routing
 
 import (
-	"net/http"
 	"os"
 
+	"github.com/Samswrld02/Portfolio/auth"
 	"github.com/Samswrld02/Portfolio/controllers"
+	"github.com/Samswrld02/Portfolio/middlewareC"
 	"github.com/go-playground/validator/v10"
 	"github.com/labstack/echo/v5"
-	"github.com/labstack/echo/v5/middleware"
+	middleware "github.com/labstack/echo/v5/middleware"
 	"gorm.io/gorm"
 )
 
@@ -16,6 +17,7 @@ type Router struct {
 	Server *echo.Echo
 	port   string
 	db     *gorm.DB
+	auth   *auth.Auth
 }
 
 type CustomValidator struct {
@@ -34,6 +36,7 @@ func NewRouter(db *gorm.DB) *Router {
 		Server: echo.New(),
 		port:   ":" + os.Getenv("GO_PORT"),
 		db:     db,
+		auth:   &auth.Auth{Db: db},
 	}
 
 	//set validatopr
@@ -49,22 +52,19 @@ func NewRouter(db *gorm.DB) *Router {
 func (r *Router) setRoutes() {
 	api := r.Server.Group("/api", middleware.RequestLogger(), middleware.Recover())
 
-	api.GET("/hi", func(c *echo.Context) error {
-		return c.JSON(http.StatusOK, map[string]string{"routing": "works"})
-	})
-
-	api.GET("/sam", func(c *echo.Context) error {
-		return c.HTML(http.StatusOK, "<h1>hello world</h1>")
-	})
+	api.POST("/login", r.auth.Login)
+	api.POST("/register", r.auth.Register)
 
 	//project crud, inject db into controller
 	projectController := controllers.NewProjectController(r.db)
 	project := api.Group("/projects")
 	project.GET("", projectController.Read)
 	project.GET("/:id", projectController.Show)
-	project.POST("", projectController.Create)
-	project.PATCH("/:id", projectController.Update)
-	project.DELETE("/:id", projectController.Delete)
+
+	protectedProjects := project.Group("", middlewareC.CheckJwt)
+	protectedProjects.POST("", projectController.Create)
+	protectedProjects.PATCH("/:id", projectController.Update)
+	protectedProjects.DELETE("/:id", projectController.Delete)
 }
 
 func (r *Router) setValidator() {

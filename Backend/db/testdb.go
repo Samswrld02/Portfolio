@@ -21,6 +21,9 @@ func NewDb() *gorm.DB {
 	if err := db.AutoMigrate(&models.Project{}); err != nil {
 		fmt.Printf("%s", err.Error())
 	}
+	if err := db.AutoMigrate(&models.User{}); err != nil {
+		fmt.Printf("%s", err.Error())
+	}
 
 	return db
 }

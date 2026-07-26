@@ -2,6 +2,7 @@ package dto
 
 // reading dto project
 type ReadProjectDTO struct {
+	ID          int
 	Title       string
 	Description string
 	Link        string
