@@ -1,10 +1,14 @@
-<script setup></script>
+<script setup>
+import NavBar from '@/components/NavBar.vue';
+
+
+</script>
 
 <template>
-
-
-
-    <slot></slot>
-
-
+    <div class="min-h-screen">
+        <nav-bar></nav-bar>
+        <main class="w-full">
+            <slot />
+        </main>
+    </div>
 </template>

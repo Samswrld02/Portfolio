@@ -20,7 +20,7 @@ const TestSkill = {
                 <p class="text-[#978085] text-sm">The foundation of my engineering workflow.</p>
             </h2>
             <!-- skillcard grid -->
-            <div class="grid grid-cols-5 gap-2 ">
+            <div class="grid md:grid-cols-5 grid-cols-2 gap-2 ">
                 <StackCard class="text-white" :skill="TestSkill"></StackCard>
                 <StackCard class="text-white" :skill="TestSkill"></StackCard>
                 <StackCard class="text-white" :skill="TestSkill"></StackCard>

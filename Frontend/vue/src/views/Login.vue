@@ -4,6 +4,8 @@ import router from "@/router";
 import api from "@/helpers/api";
 import { ref } from "vue";
 
+import LoginInput from "@/components/LoginInput.vue";
+
 //formdata refs
 const username = ref("")
 const password = ref("")
@@ -19,6 +21,7 @@ const HandleLogin = async () => {
         console.log(Form)
         console.log(username.value, password.value)
         const result = await api.post("/login", Form)
+        // console.log(result)
 
         //login to router
         router.push({ name: "dashboard" })
@@ -33,66 +36,52 @@ const HandleLogin = async () => {
 }
 
 
+
+
 </script>
 
 <template>
-    <!--
-    This example requires updating your template:
 
-    ```
-    <html class="h-full bg-white">
-    <body class="h-full">
-    ```
-  -->
-    <div class="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div class="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img class="mx-auto h-10 w-auto"
-                src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-                alt="Your Company" />
-            <h2 class="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">Sign in to your account</h2>
+
+    <div id="LoginContainer"
+        class="max-w-lg  mx-auto flex flex-col items-center bg-[#131b2e] pb-20 border border-gray-300/10 rounded-sm">
+
+        <!-- header section -->
+
+        <div class="my-20 text-2xl flex flex-col items-center  text-white">
+            <h1>System Access</h1>
+            <h2 class="text-[18px]">Portfolio</h2>
         </div>
 
-        <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-            <form class="space-y-6" @submit.prevent="HandleLogin">
-                <div>
-                    <label for="username" class="block text-sm/6 font-medium text-gray-900">Username</label>
-                    <div class="mt-2">
-                        <input type="text" name="username" id="username" required="" v-model="username"
-                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
-                    </div>
-                </div>
-                <!-- <h1>password {{ password }}</h1>
-                <h1>username {{ username }}</h1> -->
+        <!-- input -->
+        <div class="flex flex-col gap-5  w-2/3 text-white">
+            <div class="flex flex-col">
+                <label class="text-sm" for="">Username</label>
+                <LoginInput v-model="username" placeholder="Username"></LoginInput>
+            </div>
 
-                <div>
-                    <div class="flex items-center justify-between">
-                        <label for="password" class="block text-sm/6 font-medium text-gray-900">Password</label>
-                        <div class="text-sm">
-                            <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Forgot password?</a>
-                        </div>
-                    </div>
-                    <div class="mt-2">
-                        <input type="password" name="password" id="password" autocomplete="current-password" required=""
-                            v-model="password"
-                            class="block w-full rounded-md bg-white px-3 py-1.5 text-base text-gray-900 outline-1 -outline-offset-1 outline-gray-300 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-indigo-600 sm:text-sm/6" />
-                    </div>
-                </div>
+            <div class="flex flex-col">
+                <label class="text-sm" for="">Password</label>
+                <LoginInput type="password" v-model="password" placeholder="Password"></LoginInput>
 
-                <div>
-                    <button type="submit"
-                        class="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Sign
-                        in</button>
-                </div>
-            </form>
+            </div>
 
-            <p class="mt-10 text-center text-sm/6 text-gray-500">
-                Not a member?
-                {{ ' ' }}
-                <a href="#" class="font-semibold text-indigo-600 hover:text-indigo-500">Start a 14 day free trial</a>
-            </p>
-            <p v-if="error">
-                {{ error }}
-            </p>
+            <!-- button -->
+            <div class="text-center mt-5 pb-10 border-b border-b-gray-200/20">
+                <h2 @click="HandleLogin"
+                    class="transition ease-in-out hover:bg-red-600 py-2 hover:border-gray-200/10 bg-[#ff5357] rounded-sm ">
+                    Authenticate
+                    →</h2>
+            </div>
+
+            <div>
+                <p class="text-sm text-center text-gray-200/30">Connection encrypted</p>
+            </div>
         </div>
+
     </div>
+
+
+
+
 </template>
