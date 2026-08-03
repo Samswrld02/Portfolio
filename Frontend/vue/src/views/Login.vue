@@ -44,7 +44,7 @@ const HandleLogin = async () => {
 
 
     <div id="LoginContainer"
-        class="max-w-lg  mx-auto flex flex-col items-center bg-[#131b2e] pb-20 border border-gray-300/10 rounded-sm">
+        class="max-w-lg  mx-auto flex flex-col items-center bg-[#0c0c0c] pb-20 border border-gray-300/10 rounded-sm">
 
         <!-- header section -->
 

@@ -14,7 +14,7 @@ const TestSkill = {
     <section id="skills">
 
         <div
-            class="px-10 flex flex-col gap-8 border-b border-t border-b-[#978085]/20 border-t-[#978085]/20 py-10 bg-[#020713]">
+            class="px-10 flex flex-col gap-8 border-b border-t border-b-[#978085]/20 border-t-[#978085]/20 py-10 bg-black">
             <h2 id="skillsHeader" class="text-3xl text-white">
                 Core technology stack
                 <p class="text-[#978085] text-sm">The foundation of my engineering workflow.</p>

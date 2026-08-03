@@ -13,16 +13,18 @@ const handleLogin = () => {
 
 <template>
     <nav
-        class="bg-[#060b17] sticky top-0 z-50 w-full flex flex-col md:flex-row items-center justify-between px-6 py-3 border-b border-b-[#7d5d66]">
+        class="bg-[#060608] sticky top-0 z-50 w-full md:w-[95%] mx-auto flex flex-col md:flex-row items-center justify-between px-6 py-3 border-b border-b-gray-200/5 rounded-lg">
         <div class="text-[#b9c1db] text-2xl font-bold">Backend_Portfolio</div>
-        <div class="flex gap-8 text-[18px] text-[#7d5d66]">
-            <RouterLink to="/" :class="[route.path == '/' ? 'border-b text-[#7d5d66] border-b-[#7d5d66]' : '']">
+        <div class="flex gap-8 text-[18px] text-red-800 ">
+            <RouterLink to="/"
+                :class="[route.path == '/' ? 'text-[#7c8fb8] border-b border-b-[#7c8fb8]' : '', 'border-b-[#7c8fb8]']">
                 Home
             </RouterLink>
             <RouterLink to="/projects"
-                :class="[route.path == '/projects' ? 'border-b text-[#7d5d66] border-b-[#7d5d66]' : '']">
+                :class="[route.path == '/projects' ? 'border-b text-[#7d5d66] ' : '', 'border-b-[#7c8fb8]']">
                 Projects</RouterLink>
-            <RouterLink :class="[route.path == '/skills' ? 'border-b text-[#7d5d66] border-b-test' : '']" to="/skills">
+            <RouterLink :class="[route.path == '/skills' ? 'border-b text-[#7d5d66] border-b-[#7c8fb8]' : '']"
+                to="/skills">
                 Skills
             </RouterLink>
             <RouterLink :class="[route.path == '/contact' ? 'border-b  border-b-test' : '']" to="/contact">Contact
